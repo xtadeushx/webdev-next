@@ -1,7 +1,8 @@
 import React from 'react';
+import Heading from '../components/Heading';
 
 const Home = () => {
-    return <h1>hello world</h1>;
+    return <Heading title='hello world' />;
 };
 
 export default Home;
