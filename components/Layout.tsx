@@ -3,7 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 type ILayoutProps = {
-    children: any;
+    children: unknown;
 };
 const Layout = ({ children }: ILayoutProps) => {
     return (
