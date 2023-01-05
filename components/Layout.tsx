@@ -4,6 +4,7 @@ import Footer from './Footer';
 
 type ILayoutProps = {
     children: unknown;
+    className?: string;
 };
 const Layout = ({ children }: ILayoutProps) => {
     return (

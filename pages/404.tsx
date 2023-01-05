@@ -3,6 +3,12 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Heading from '../components/Heading';
 import styles from '../styles/404.module.scss';
+import { Roboto } from '@next/font/google';
+
+const roboto = Roboto({
+    weight: '400',
+    subsets: ['latin'],
+});
 
 const Error = () => {
     const router = useRouter();
@@ -20,7 +26,9 @@ const Error = () => {
             </Head>
             <div>
                 <Heading title='404' />
-                <h2>Something is going wrong...</h2>
+                <h2 className={roboto.className}>
+                    Something is going wrong...
+                </h2>
             </div>
         </div>
     );
