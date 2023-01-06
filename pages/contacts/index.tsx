@@ -11,19 +11,27 @@ type ContactsInfoProps = {
 };
 
 export async function getStaticProps() {
-    const resp = await fetch('https://jsonplaceholder.typicode.com/users');
-    const data = await resp.json();
-    if (!data) {
+    try {
+        const resp = await fetch('https://jsonplaceholder.typicode.com/users');
+        const data = await resp.json();
+        if (!data) {
+            return {
+                notFound: true,
+            };
+        }
+
         return {
-            notFound: true,
+            props: {
+                contacts: data,
+            },
+        };
+    } catch {
+        return {
+            props: {
+                contacts: null,
+            },
         };
     }
-
-    return {
-        props: {
-            contacts: data,
-        },
-    };
 }
 const Contacts: FC<ContactsInfoProps> = ({ contacts }) => {
     return (

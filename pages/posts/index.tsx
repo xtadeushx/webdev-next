@@ -11,19 +11,27 @@ interface IPostsProps {
 }
 
 export async function getStaticProps() {
-    const resp = await fetch('https://jsonplaceholder.typicode.com/posts');
-    const data = (await resp.json()) as postType[];
-    if (!data) {
+    try {
+        const resp = await fetch('https://jsonplaceholder.typicode.com/posts');
+        const data = (await resp.json()) as postType[];
+        if (!data) {
+            return {
+                notFound: true,
+            };
+        }
+
         return {
-            notFound: true,
+            props: {
+                posts: data,
+            },
+        };
+    } catch {
+        return {
+            props: {
+                posts: null,
+            },
         };
     }
-
-    return {
-        props: {
-            posts: data,
-        },
-    };
 }
 const Posts: FC<IPostsProps> = ({ posts }) => {
     return (

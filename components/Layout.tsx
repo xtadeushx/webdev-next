@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 
 type ILayoutProps = {
-    children: unknown;
-    className?: string;
+    children: ReactNode;
 };
-const Layout = ({ children }: ILayoutProps) => {
+const Layout: FC<ILayoutProps> = ({ children }) => {
     return (
         <>
             <Header />

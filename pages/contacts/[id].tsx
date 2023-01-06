@@ -2,11 +2,12 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 import ContactInfo from '../../components/ContactInfo';
 import { contactType } from '../../types';
+import { GetServerSideProps } from 'next';
 
 type ContactInfoProps = {
     contact: contactType;
 };
-export async function getServerSideProps(context: any) {
+export const getServerSideProps: GetServerSideProps = async (context : any) => {
     const { id } = context.params;
     const resp = await fetch(
         `https://jsonplaceholder.typicode.com/users/${id}`
@@ -23,7 +24,7 @@ export async function getServerSideProps(context: any) {
             contact: data,
         },
     };
-}
+};
 const Contact: FC<ContactInfoProps> = ({ contact }) => {
     return (
         <>

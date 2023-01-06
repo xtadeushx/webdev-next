@@ -26,22 +26,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-    const id = context?.params?.id;
-    const resp = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${id}`
-    );
-    const data = (await resp.json()) as IPostProps[];
-    if (!data) {
+    try {
+        const id = context?.params?.id;
+        const resp = await fetch(
+            `https://jsonplaceholder.typicode.com/posts/${id}`
+        );
+        const data = (await resp.json()) as IPostProps[];
+        if (!data) {
+            return {
+                notFound: true,
+            };
+        }
+
         return {
-            notFound: true,
+            props: {
+                post: data,
+            },
+        };
+    } catch {
+        return {
+            props: {
+                post: null,
+            },
         };
     }
-
-    return {
-        props: {
-            post: data,
-        },
-    };
 };
 
 const Post: FC<IPostProps> = ({ post }) => {

@@ -6,8 +6,6 @@ import { GetStaticProps } from 'next';
 import Heading from '../components/Heading';
 import Socials from '../components/Socials';
 
-import { TSocial } from './api/socials';
-
 import styles from '../styles/Home.module.scss';
 import { socialsType } from '../types';
 
@@ -19,18 +17,26 @@ const API_URI = process.env.API_HOST;
 
 export const getStaticProps: GetStaticProps = async () => {
     const URL = `${API_URI}/socials`;
-    const resp = await fetch(URL);
-    const data = (await resp.json()) as TSocial[];
-    if (!data) {
+    try {
+        const resp = await fetch(URL);
+        const data = (await resp.json()) as socialsType[];
+        if (!data) {
+            return {
+                notFound: true,
+            };
+        }
         return {
-            notFound: true,
+            props: {
+                socials: data,
+            },
+        };
+    } catch {
+        return {
+            props: {
+                socials: null,
+            },
         };
     }
-    return {
-        props: {
-            socials: data,
-        },
-    };
 };
 
 const Home: FC<IHomeProps> = ({ socials }) => (

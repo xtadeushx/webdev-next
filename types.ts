@@ -17,7 +17,7 @@ export type postType = {
 };
 
 export type socialsType = {
-    id: string;
+    id: number;
     icon: string;
     path: string;
 };
