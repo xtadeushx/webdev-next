@@ -1,11 +1,13 @@
-import React from 'react';
-import Heading from '../../components/Heading';
+import React, { FC } from 'react';
 import Head from 'next/head';
 import ContactInfo from '../../components/ContactInfo';
+import { contactType } from '../../types';
 
+type ContactInfoProps = {
+    contact: contactType;
+};
 export async function getServerSideProps(context: any) {
     const { id } = context.params;
-    console.log(context);
     const resp = await fetch(
         `https://jsonplaceholder.typicode.com/users/${id}`
     );
@@ -22,8 +24,7 @@ export async function getServerSideProps(context: any) {
         },
     };
 }
-
-const Contact = ({ contact }: any) => {
+const Contact: FC<ContactInfoProps> = ({ contact }) => {
     return (
         <>
             <Head>

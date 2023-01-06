@@ -1,7 +1,14 @@
-import React from 'react';
-import Heading from '../../components/Heading';
+import React, { FC } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+
+import Heading from '../../components/Heading';
+
+import { contactType } from '../../types';
+
+type ContactsInfoProps = {
+    contacts: contactType[];
+};
 
 export async function getStaticProps() {
     const resp = await fetch('https://jsonplaceholder.typicode.com/users');
@@ -18,8 +25,7 @@ export async function getStaticProps() {
         },
     };
 }
-const Contacts = ({ contacts }: any) => {
-    console.log(contacts);
+const Contacts: FC<ContactsInfoProps> = ({ contacts }) => {
     return (
         <>
             <Head>
@@ -30,8 +36,9 @@ const Contacts = ({ contacts }: any) => {
                 {contacts?.map(({ id, name, email }: any) => {
                     return (
                         <li key={id}>
-                            <Link href={`/contacts/${id}`}><strong>{name}</strong> ({email})</Link>
-                            
+                            <Link href={`/contacts/${id}`}>
+                                <strong>{name}</strong> ({email})
+                            </Link>
                         </li>
                     );
                 })}
